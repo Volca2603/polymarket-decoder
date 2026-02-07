@@ -1,79 +1,84 @@
 # Polymarket Decoder
 
-A comprehensive tool for decoding Polymarket trading events and market parameters on Polygon blockchain.
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
+[![Web3.py](https://img.shields.io/badge/Web3.py-6.0%2B-green?style=flat-square&logo=ethereum)](https://web3py.readthedocs.io/)
+[![Polygon](https://img.shields.io/badge/Polygon-Mainnet-yellow?style=flat-square&logo=polygon)](https://polygon.technology/)
+[![GitHub](https://img.shields.io/badge/GitHub-Open%20Source-lightgrey?style=flat-square&logo=github)](https://github.com/Volca2603/polymarket-decoder)
 
-## Features
+一个用于解析 Polygon 区块链上 Polymarket 交易事件和市场参数的综合工具。
 
-- **Trade Decoder**: Parses `OrderFilled` events and extracts trade details
-- **Market Decoder**: Retrieves market information from Gamma API and calculates token IDs
-- **Gamma API Integration**: Fetches market data using event slugs
-- **ERC-1155 Token ID Calculation**: Computes YES/NO token IDs for binary markets
-- **JSON Output**: Produces structured JSON output for easy integration
+## 功能特性
 
-## Installation
+- **交易解析器**：解析 `OrderFilled` 事件并提取交易详情
+- **市场解析器**：从 Gamma API 获取市场信息并计算代币 ID
+- **Gamma API 集成**：使用事件 slug 获取市场数据
+- **ERC-1155 代币 ID 计算**：为二元市场计算 YES/NO 代币 ID
+- **JSON 输出**：生成结构化 JSON 输出，便于集成
 
-### Prerequisites
+## 安装说明
+
+### 前提条件
 
 - Python 3.8+
 - Web3.py
 - Requests
 - python-dotenv
 
-### Setup
+### 安装步骤
 
-1. **Clone the repository**
+1. **克隆仓库**
    ```bash
    git clone https://github.com/Volca2603/polymarket-decoder.git
    cd polymarket-decoder
    ```
 
-2. **Install dependencies**
+2. **安装依赖**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Configure environment variables**
-   - Copy the example environment file
+3. **配置环境变量**
+   - 复制环境变量示例文件
      ```bash
      cp .env.example .env
      ```
-   - Edit `.env` file and add your Polygon RPC URL
+   - 编辑 `.env` 文件并添加你的 Polygon RPC URL
      ```
      RPC_URL=https://polygon-mainnet.g.alchemy.com/v2/YOUR_API_KEY
      ```
 
-## Usage
+## 使用方法
 
-### Trade Decoder
+### 交易解析器
 
-Parses `OrderFilled` events from a transaction and extracts trade details.
+解析交易中的 `OrderFilled` 事件并提取交易详情。
 
 ```bash
-# Decode trades from a transaction
+# 解析交易中的订单事件
 python -m src.trade_decoder --tx-hash 0x916cad96dd5c219997638133512fd17fe7c1ce72b830157e4fd5323cf4f19946
 
-# Save output to file
+# 将输出保存到文件
 python -m src.trade_decoder --tx-hash 0x916cad96dd5c219997638133512fd17fe7c1ce72b830157e4fd5323cf4f19946 --output ./data/trades.json
 ```
 
-### Market Decoder
+### 市场解析器
 
-Retrieves market information and calculates token IDs using Gamma API.
+从 Gamma API 获取市场信息并计算代币 ID。
 
 ```bash
-# Get market info by event slug
+# 通过事件 slug 获取市场信息
 python -m src.market_decoder --event-slug will-there-be-another-us-government-shutdown-by-january-31
 
-# Save output to file
+# 将输出保存到文件
 python -m src.market_decoder --event-slug will-there-be-another-us-government-shutdown-by-january-31 --output ./data/market.json
 
-# Get market info by condition ID
+# 通过 condition ID 获取市场信息
 python -m src.market_decoder --condition-id 0x43ec78527bd98a0588dd9455685b2cc82f5743140cb3a154603dc03c02b57de5
 ```
 
-## Output Format
+## 输出格式
 
-### Trade Decoder Output
+### 交易解析器输出
 
 ```json
 [
@@ -93,7 +98,7 @@ python -m src.market_decoder --condition-id 0x43ec78527bd98a0588dd9455685b2cc82f
 ]
 ```
 
-### Market Decoder Output
+### 市场解析器输出
 
 ```json
 {
@@ -107,55 +112,71 @@ python -m src.market_decoder --condition-id 0x43ec78527bd98a0588dd9455685b2cc82f
 }
 ```
 
-## Project Structure
+## 项目结构
 
 ```
 polymarket-decoder/
-├── data/               # Output files
-├── src/                # Source code
-│   ├── ctf/            # CTF-related utilities
+├── data/               # 输出文件
+├── src/                # 源代码
+│   ├── ctf/            # CTF 相关工具
 │   │   ├── __init__.py
-│   │   └── derive.py   # Token ID calculation
+│   │   └── derive.py   # 代币 ID 计算
 │   ├── __init__.py
-│   ├── market_decoder.py  # Market decoder implementation
-│   └── trade_decoder.py   # Trade decoder implementation
-├── .env                # Environment variables
-├── .env.example        # Environment variables template
-├── .gitignore          # Git ignore file
-├── README.md           # This file
-└── requirements.txt    # Dependencies
+│   ├── market_decoder.py  # 市场解析器实现
+│   └── trade_decoder.py   # 交易解析器实现
+├── .env                # 环境变量
+├── .env.example        # 环境变量模板
+├── .gitignore          # Git 忽略文件
+├── README.md           # 本文档
+└── requirements.txt    # 依赖项
 ```
 
-## API Reference
+## API 参考
 
 ### Gamma API
 
-The market decoder uses the Gamma API to fetch market information:
+市场解析器使用 Gamma API 获取市场信息：
 
 ```
 GET https://gamma-api.polymarket.com/events?slug={event-slug}
 ```
 
-### Web3.py Event Decoding
+### Web3.py 事件解码
 
-The trade decoder uses Web3.py to parse Ethereum events:
+交易解析器使用 Web3.py 解析以太坊事件：
 
 ```python
-# Example event parsing
+# 事件解析示例
 contract = w3.eth.contract(address=address, abi=ABI)
 decoded = contract.events.OrderFilled().process_log(log)
 ```
 
-## License
+## 技术标签徽章说明
+
+你在本文档顶部看到的技术标签徽章是通过 [shields.io](https://shields.io/) 服务实现的。这些徽章使用 Markdown 图片语法嵌入，格式如下：
+
+```markdown
+[![标签名称](https://img.shields.io/badge/标签文本-颜色?style=样式&logo=图标)](链接地址)
+```
+
+### 示例
+
+- **Python 版本**：`[![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
+- **Web3.py**：`[![Web3.py](https://img.shields.io/badge/Web3.py-6.0%2B-green?style=flat-square&logo=ethereum)](https://web3py.readthedocs.io/)
+- **Polygon**：`[![Polygon](https://img.shields.io/badge/Polygon-Mainnet-yellow?style=flat-square&logo=polygon)](https://polygon.technology/)
+
+你可以根据项目使用的技术栈，自定义这些徽章的内容和颜色。
+
+## 许可证
 
 MIT
 
-## Contributing
+## 贡献
 
-Contributions are welcome! Please open an issue or submit a pull request.
+欢迎贡献代码！请提交 issue 或 pull request。
 
-## Acknowledgments
+## 鸣谢
 
-- Polymarket for creating the CTF exchange
-- Gamma for providing the market API
-- Web3.py for Ethereum interaction
+- Polymarket 提供的 CTF 交易所
+- Gamma 提供的市场 API
+- Web3.py 库用于以太坊交互
