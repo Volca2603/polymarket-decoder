@@ -42,7 +42,7 @@
      ```bash
      cp .env.example .env
      ```
-   - 编辑 `.env` 文件并添加你的 Polygon RPC URL
+   - 编辑 `.env` 文件并添加 Polygon RPC URL
      ```
      RPC_URL=https://polygon-mainnet.g.alchemy.com/v2/YOUR_API_KEY
      ```
@@ -151,32 +151,7 @@ contract = w3.eth.contract(address=address, abi=ABI)
 decoded = contract.events.OrderFilled().process_log(log)
 ```
 
-## 技术标签徽章说明
-
-你在本文档顶部看到的技术标签徽章是通过 [shields.io](https://shields.io/) 服务实现的。这些徽章使用 Markdown 图片语法嵌入，格式如下：
-
-```markdown
-[![标签名称](https://img.shields.io/badge/标签文本-颜色?style=样式&logo=图标)](链接地址)
-```
-
-### 示例
-
-- **Python 版本**：`[![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)](https://www.python.org/)
-- **Web3.py**：`[![Web3.py](https://img.shields.io/badge/Web3.py-6.0%2B-green?style=flat-square&logo=ethereum)](https://web3py.readthedocs.io/)
-- **Polygon**：`[![Polygon](https://img.shields.io/badge/Polygon-Mainnet-yellow?style=flat-square&logo=polygon)](https://polygon.technology/)
-
-你可以根据项目使用的技术栈，自定义这些徽章的内容和颜色。
 
 ## 许可证
 
 MIT
-
-## 贡献
-
-欢迎贡献代码！请提交 issue 或 pull request。
-
-## 鸣谢
-
-- Polymarket 提供的 CTF 交易所
-- Gamma 提供的市场 API
-- Web3.py 库用于以太坊交互
